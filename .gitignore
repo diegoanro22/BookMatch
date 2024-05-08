@@ -25,4 +25,5 @@ replay_pid*
 
 # local env files
 .env*.local
-
+/bookmatch/.env
+.env
