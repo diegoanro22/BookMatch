@@ -1,10 +1,18 @@
+'use client'
+
 import { inter } from '../fonts/font.ts';
 import Image from "next/image";
 import Link from "next/link";
 import '../css/globals.css';
+import {useRouter} from 'next/navigation';
 
 
 export default function RootLayout({ children }) {
+
+  const router = useRouter()
+  const pathname = router.pathname;
+  // Use the pathname as needed
+  console.log(pathname);
   return (
     <html lang="en">
       <head>
@@ -24,11 +32,6 @@ export default function RootLayout({ children }) {
               width={500}
               height={500}
               />
-          </div>
-          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <Link href="/login/login_user" className="text-sm font-semibold leading-6 text-gray-900">
-              Log in <span aria-hidden="true">&rarr;</span>
-            </Link>
           </div>
         </nav>
         
