@@ -47,18 +47,18 @@ export default function Login() {
     };
 
     return (
-        <div className="flex min-h-screen items-center justify-between px-6 py-12 bg-cover bg-center" style={{ backgroundImage: 'url(/Background.jpg)' }}>
-            <div className="flex items-start justify-start w-full ml-24">
-                <img src="/bookmatch.png" alt="Bookmatch Logo" className="h-72" />
+        <div className="flex min-h-screen items-center justify-center px-4 py-12 bg-cover bg-center" style={{ backgroundImage: 'url(/Background.jpg)' }}>
+            <div className="flex items-center justify-left w-full ml-24">
+                <img src="/bookmatch.png" alt="Bookmatch Logo" className="h-56" />
             </div>
-            <div className="sm:mx-48 sm:w-full sm:max-w-md bg-violet-100 p-8 rounded-lg shadow-lg border border-indigo-600 ml-4" style={{ minHeight: '75vh' }}>
-                <h2 className="text-center text-4xl font-bold leading-9 tracking-tight text-black mb-5 mt-64">
+            <div className="sm:mx-24 w-full max-w-2xl bg-violet-100 p-12 rounded-lg shadow-lg border border-indigo-600">
+                <h2 className="text-center text-5xl font-bold leading-9 tracking-tight text-black mb-10">
                     Iniciar sesión en tu cuenta
                 </h2>
 
-                <form className="space-y-6 mt-30" onSubmit={handleSubmit}>
+                <form className="space-y-8" onSubmit={handleSubmit}>
                     <div>
-                        <label htmlFor="username" className="block text-sm font-medium leading-6 text-black">
+                        <label htmlFor="username" className="block text-lg font-medium leading-6 text-black">
                             Usuario
                         </label>
                         <div className="mt-2">
@@ -70,14 +70,14 @@ export default function Login() {
                                 required
                                 value={formData.username}
                                 onChange={handleChange}
-                                className="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                className="block w-full rounded-md border-0 py-3 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6"
                             />
                         </div>
                     </div>
 
                     <div>
                         <div className="flex items-center justify-between">
-                            <label htmlFor="password" className="block text-sm font-medium leading-6 text-black">
+                            <label htmlFor="password" className="block text-lg font-medium leading-6 text-black">
                                 Contraseña
                             </label>
                         </div>
@@ -90,7 +90,7 @@ export default function Login() {
                                 required
                                 value={formData.password}
                                 onChange={handleChange}
-                                className="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                className="block w-full rounded-md border-0 py-3 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6"
                             />
                         </div>
                     </div>
@@ -98,14 +98,14 @@ export default function Login() {
                     <div>
                         <button
                             type="submit"
-                            className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-3 text-lg font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                         >
                             Iniciar sesión
                         </button>
                     </div>
                 </form>
 
-                <p className="mt-10 text-center text-sm text-black">
+                <p className="mt-10 text-center text-lg text-black">
                     ¿No tienes cuenta?&nbsp;
                     <Link href="/login/register" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
                         Registrarse

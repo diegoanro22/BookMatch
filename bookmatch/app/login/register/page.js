@@ -1,10 +1,9 @@
-'use client'
+"use client";
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createUser } from '../../../lib/functions';
 import Modal from '../../../components/Modal';
 import bcrypt from 'bcryptjs';
-
 
 export default function Register() {
     const [formData, setFormData] = useState({
@@ -50,117 +49,95 @@ export default function Register() {
     };
 
     return (
-        <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-            <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+        <div className="flex min-h-screen items-center justify-center bg-cover bg-center" style={{ backgroundImage: 'url(/Background.jpg)' }}>
+            <div className="w-full max-w-4xl bg-white p-16 rounded-lg shadow-lg border border-indigo-600">
+                <h2 className="text-center text-4xl font-bold leading-9 tracking-tight text-gray-900 mb-8">
                     Registrarse
                 </h2>
-            </div>
-
-            <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                <form className="space-y-6" onSubmit={handleSubmit}>
-                <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-                    <div>
-                        <label htmlFor="nombre" className="block text-sm font-medium leading-6 text-gray-900">
-                            Nombre
-                        </label>
-                        <div className="mt-2">
+                <form className="space-y-8" onSubmit={handleSubmit}>
+                    <div className="grid grid-cols-1 gap-y-8 sm:grid-cols-2 sm:gap-x-8">
+                        <div>
+                            <label htmlFor="nombre" className="block text-lg font-medium leading-6 text-gray-900">
+                                Nombre
+                            </label>
                             <input
                                 id="nombre"
                                 name="nombre"
                                 type="text"
-                                autocomplete="given-name"
+                                autoComplete="given-name"
                                 required
                                 value={formData.nombre}
                                 onChange={handleChange}
-                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                className="block w-full rounded-md border-0 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6"
                             />
                         </div>
-                    </div>
-
-                    <div>
-                        <label htmlFor="apellido" className="block text-sm font-medium leading-6 text-gray-900">
-                            Apellido
-                        </label>
-                        <div className="mt-2">
+                        <div>
+                            <label htmlFor="apellido" className="block text-lg font-medium leading-6 text-gray-900">
+                                Apellido
+                            </label>
                             <input
                                 id="apellido"
                                 name="apellido"
                                 type="text"
-                                autocomplete="family-name"
+                                autoComplete="family-name"
                                 required
                                 value={formData.apellido}
                                 onChange={handleChange}
-                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                className="block w-full rounded-md border-0 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6"
                             />
                         </div>
                     </div>
-                    </div>
-
-
                     <div>
-                        <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                        <label htmlFor="email" className="block text-lg font-medium leading-6 text-gray-900">
                             Correo Electrónico
                         </label>
-                        <div className="mt-2">
-                            <input
-                                id="email"
-                                name="email"
-                                type="email"
-                                required
-                                value={formData.email}
-                                onChange={handleChange}
-                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            />
-                        </div>
+                        <input
+                            id="email"
+                            name="email"
+                            type="email"
+                            required
+                            value={formData.email}
+                            onChange={handleChange}
+                            className="block w-full rounded-md border-0 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6"
+                        />
                     </div>
-
-
                     <div>
-                        <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">
+                        <label htmlFor="username" className="block text-lg font-medium leading-6 text-gray-900">
                             Nombre de Usuario
                         </label>
-                        <div className="mt-2">
-                            <input
-                                id="username"
-                                name="username"
-                                type="text"
-                                required
-                                value={formData.username}
-                                onChange={handleChange}
-                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            />
-                        </div>
+                        <input
+                            id="username"
+                            name="username"
+                            type="text"
+                            required
+                            value={formData.username}
+                            onChange={handleChange}
+                            className="block w-full rounded-md border-0 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6"
+                        />
                     </div>
-
-
                     <div>
-                        <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                        <label htmlFor="password" className="block text-lg font-medium leading-6 text-gray-900">
                             Contraseña
                         </label>
-                        <div className="mt-2">
-                            <input
-                                id="password"
-                                name="password"
-                                type="password"
-                                required
-                                value={formData.password}
-                                onChange={handleChange}
-                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            />
-                        </div>
+                        <input
+                            id="password"
+                            name="password"
+                            type="password"
+                            required
+                            value={formData.password}
+                            onChange={handleChange}
+                            className="block w-full rounded-md border-0 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6"
+                        />
                     </div>
-
                     <div>
                         <button
                             type="submit"
-                            className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            className="w-full bg-indigo-600 px-4 py-3 text-lg font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                         >
                             Registrarse
                         </button>
                     </div>
                 </form>
-                
             </div>
             <Modal
                 show={modalVisible}
