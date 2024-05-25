@@ -49,7 +49,9 @@ export default function Login() {
     return (
         <div className="flex min-h-screen items-center justify-center px-4 py-12 bg-cover bg-center" style={{ backgroundImage: 'url(/Background.jpg)' }}>
             <div className="flex items-center justify-left w-full ml-24">
-                <img src="/bookmatch.png" alt="Bookmatch Logo" className="h-56" />
+                <div className="sm:mx-12 w-full max-w-xl bg-blue-300 p-8 rounded-lg shadow-lg border border-indigo-600">
+                    <img src="/bookmatch1.png" alt="Bookmatch Logo" className="h-48 mx-auto" />
+                </div>
             </div>
             <div className="sm:mx-24 w-full max-w-2xl bg-violet-100 p-12 rounded-lg shadow-lg border border-indigo-600">
                 <h2 className="text-center text-5xl font-bold leading-9 tracking-tight text-black mb-10">
