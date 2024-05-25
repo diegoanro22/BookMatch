@@ -50,7 +50,7 @@ export default function Register() {
 
     return (
         <div className="flex min-h-screen items-center justify-center bg-cover bg-center" style={{ backgroundImage: 'url(/Background.jpg)' }}>
-            <div className="w-full max-w-4xl bg-white p-16 rounded-lg shadow-lg border border-indigo-600">
+            <div className="w-full max-w-4xl bg-violet-100 p-16 rounded-lg shadow-lg border border-indigo-600">
                 <h2 className="text-center text-4xl font-bold leading-9 tracking-tight text-gray-900 mb-8">
                     Registrarse
                 </h2>
