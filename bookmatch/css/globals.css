@@ -16,17 +16,28 @@
   }
 }
 
+@font-face {
+  font-family: 'Bukhari Script';
+  src: url('../fonts/bukhari-script/Bukhari Script.ttf') format('truetype');
+}
+
 body {
+  font-family: 'Bukhari Script', sans-serif;
   color: rgb(var(--foreground-rgb));
-  background-image: url('/wallpaperIndex.png');
+  background-image: url('/noche.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   backdrop-filter: blur(5px);
+  
+}
+
+.font-Bukhari {
+  font-family: 'Bukhari Script', sans-serif;
 }
 
 .text-white {
-  color: #fff; /* Color blanco */
+  color: #fff; 
 }
 
 @layer utilities {

@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
             <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
               <div className="flex lg:flex-1">
                 <span className="sr-only">BookMatch</span>
-                <h1 className="font-woodland text-2xl text-black">Book Match</h1>
+                <h1 className="font-Bukhari text-2xl text-black">Book Match</h1>
               </div>
             </nav>
           </header>
