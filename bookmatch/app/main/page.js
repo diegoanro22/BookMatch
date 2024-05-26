@@ -27,7 +27,7 @@ function MainPage() {
     return (
     <div>
         <Box sx={{ width: '100%' }}>
-        <AppBar position="static">
+        <AppBar position="static" color="primary" sx={{ backgroundColor: 'white' }} >
             <Toolbar>
         </Toolbar>
         <Tabs value={value} onChange={handleChange} centered>
@@ -43,7 +43,7 @@ function MainPage() {
 </TabPanel>}
         {value === 1 && <TabPanel><GenerosPage /></TabPanel>}
         {value === 2 && <TabPanel>Contenido de Recomendaciones</TabPanel>}
-        {value === 3 && <TabPanel><LibroLeidossPage /></TabPanel>}
+        {value === 3 && <TabPanel><LibroLeidossPage/></TabPanel>}
       </Box>
     </div>
   );
@@ -70,7 +70,7 @@ function LibrosPage() {
     const [isRead, setIsRead] = useState(false);
 
     const handleReadClick = () => {
-        setLibros(libros.map((libro, i) => i === index? {...libro, isRead:!libro.isRead} : libro));
+        setIsRead(!isRead);
     };
     const libros = [
         { author: 'Autor 1', title: 'Libro 1', genre: 'Género 1' },
