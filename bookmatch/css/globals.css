@@ -31,3 +31,14 @@ body {
     text-wrap: balance;
   }
 }
+
+p{
+  /* cambiar el color de p */
+  color: rgb(0, 0, 0);
+  /*centrar el texto*/
+  text-align: center;
+}
+li{
+  color: blueviolet;
+  
+}
