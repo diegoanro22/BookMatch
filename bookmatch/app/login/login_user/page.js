@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from "next/link";
@@ -47,13 +46,12 @@ export default function Login() {
     };
 
     return (
-        <div className="flex min-h-screen items-center justify-center px-4 py-12 bg-cover bg-center" style={{ backgroundImage: 'url(/Background.jpg)' }}>
-            <div className="flex items-center justify-left w-full ml-24">
-                <div className="sm:mx-12 w-full max-w-xl bg-blue-300 p-8 rounded-lg shadow-lg border border-indigo-600">
-                    <img src="/bookmatch1.png" alt="Bookmatch Logo" className="h-48 mx-auto" />
-                </div>
+        <div className="relative flex min-h-screen items-center justify-center px-4 py-12">
+            <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: 'url(/noche.png)', filter: 'blur(8px)' }}></div>
+            <div className="relative z-10 flex items-center justify-left w-full ml-44">
+                <img src="/lalala.png" alt="Bookmatch Logo" className="h-68" />
             </div>
-            <div className="sm:mx-24 w-full max-w-2xl bg-violet-100 p-12 rounded-lg shadow-lg border border-indigo-600">
+            <div className="relative z-10 sm:mx-24 w-full max-w-2xl bg-violet-100 p-12 rounded-lg shadow-lg backdrop-blur-lg bg-opacity-70">
                 <h2 className="text-center text-5xl font-bold leading-9 tracking-tight text-black mb-10">
                     Iniciar sesión en tu cuenta
                 </h2>
@@ -100,7 +98,7 @@ export default function Login() {
                     <div>
                         <button
                             type="submit"
-                            className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-3 text-lg font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            className="flex w-full justify-center rounded-md bg-yellow-500 px-3 py-3 text-lg font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                         >
                             Iniciar sesión
                         </button>
@@ -109,7 +107,7 @@ export default function Login() {
 
                 <p className="mt-10 text-center text-lg text-black">
                     ¿No tienes cuenta?&nbsp;
-                    <Link href="/login/register" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+                    <Link href="/login/register" className="font-semibold leading-6 text-blue-700 hover:text-indigo-500">
                         Registrarse
                     </Link>
                 </p>
