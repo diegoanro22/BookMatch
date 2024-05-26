@@ -26,13 +26,14 @@ export default async function Home() {
               <Image src="/lalala.png" alt="BookMatch Image" width={500} height={500} />
             </div>
             <p className="text-lg leading-8 text-gray-600 mt-0 mb-0 text-white">
-            Book Match es tu destino literario personalizado, donde las recomendaciones de libros cobran vida. Descubre lecturas que se alinean perfectamente con tus gustos y sumérgete en una experiencia de descubrimiento literario única y enriquecedora.
+              Book Match es tu destino literario personalizado, donde las recomendaciones de libros cobran vida. Descubre lecturas que se alinean perfectamente con tus gustos y sumérgete en una experiencia de descubrimiento literario única y enriquecedora.
             </p>
 
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Link
                 href="/login/login_user"
-                className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="rounded-md bg-yellow-500 px-3.5 py-2.5 text-sm font-semibold text-black shadow-sm hover:bg-yellow-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                /* Cambios aquí para el color del botón y del texto */
               >
                 Iniciar Sesión
               </Link>
