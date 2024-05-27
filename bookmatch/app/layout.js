@@ -2,14 +2,12 @@
 
 import { inter } from '../fonts/font.ts';
 import Image from "next/image";
-import Link from "next/link";
 import '../css/globals.css';
 import { useRouter } from 'next/navigation';
 
 export default function RootLayout({ children }) {
-  const router = useRouter()
+  const router = useRouter();
   const pathname = router.pathname;
-  // Use the pathname as needed
   console.log(pathname);
   return (
     <html lang="en">
@@ -18,54 +16,85 @@ export default function RootLayout({ children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>BookMatch</title>
       </head>
-      <body className={inter.className}>
-        <div className="bg-white">
-          <header className="absolute inset-x-0 top-0 z-50 bg-white">
-            <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
-              <div className="flex lg:flex-1">
-                <span className="sr-only">BookMatch</span>
-                <h1 className="font-Bukhari text-2xl text-black">Book Match</h1>
-              </div>
-            </nav>
-          </header>
-        </div>
+      <body className={`bg-cover bg-center ${inter.className}`}>
+        <header className="absolute inset-x-0 top-0 z-50 bg-white shadow-md">
+          <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+            <div className="flex lg:flex-1">
+              <span className="sr-only">BookMatch</span>
+              <h1 className="font-Bukhari text-2xl text-black">Book Match</h1>
+            </div>
+          </nav>
+        </header>
 
         {children}
-        {/* Footer */}
-        <footer className="bg-gray-200 bg-opacity-100 text-left p-4">
-          <div className="flex justify-between items-center">
-            {/* Información de la Universidad */}
-            <div className="ml-8">
-              <br></br>
-              <p className="text-sm text-gray-800 mb-5">©Universidad del Valle de Guatemala</p>
-              <p className="text-sm text-gray-800 mb-5">Contacto</p>
-              <p className="text-sm text-gray-800 mb-5">Tel: +502 8293 2673</p>
-              <p className="text-sm text-gray-800 mb-5">info@uvg.edu.gt</p>
+        
+         {/* Footer */}
+        <footer className="bg-gray-700 text-white p-8 mt-10">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex justify-between">
+              {/* Logo y Redes Sociales */}
+              <div className="flex flex-col">
+                <div className="mb-4">
+                  <h1 className="font-bold text-white text-xl mb-1">Book Match</h1>
+                  <p className="text-sm">por el placer de leer</p>
+                </div>
+                <div className="flex space-x-4">
+                  <Image
+                    src="/facebook1-logo.png"
+                    alt="Facebook Logo"
+                    width={24}
+                    height={24}
+                  />
+                  <Image
+                    src="/X-logo.png"
+                    alt="Twitter Logo"
+                    width={24}
+                    height={24}
+                  />
+                  <Image
+                    src="/github-logo.png"
+                    alt="Github Logo"
+                    width={24}
+                    height={24}
+                  />
+                  <Image
+                    src="/instagram-logo1.png"
+                    alt="Instagram Logo"
+                    width={24}
+                    height={24}
+                  />
+                  <Image
+                    src="/rss-logo1.png"
+                    alt="RSS Logo"
+                    width={24}
+                    height={24}
+                  />
+                </div>
+              </div>
+              {/* Información de Contacto */}
+              <div className="flex flex-col">
+                <h2 className="text-lg font-bold mb-2">CONTACTO</h2>
+                <p className="text-sm mb-1">📞 +502 8374 1923</p>
+                <p className="text-sm mb-1">✉️ infomatch@gmail.com</p>
+                <p className="text-sm mb-1">💬 Formulario de contacto</p>
+              </div>
+              {/* Páginas Legales */}
+              <div className="flex flex-col">
+                <h2 className="text-lg font-bold mb-2">PÁGINAS LEGALES</h2>
+                <p className="text-sm mb-1">Aviso legal</p>
+                <p className="text-sm mb-1">Política de Cookies</p>
+                <p className="text-sm mb-1">Condiciones de servicio</p>
+                <p className="text-sm mb-1">Protección de datos</p>
+              </div>
+              {/* Atención al Cliente */}
+              <div className="flex flex-col">
+                <h2 className="text-lg font-bold mb-2">ATENCIÓN AL CLIENTE</h2>
+                <p className="text-sm mb-1">Contacto</p>
+                <p className="text-sm mb-1">Quiénes somos</p>
+              </div>
             </div>
-            {/* Redes Sociales */}
-            <div className="flex items-center mr-12">
-              {/* Logo de Instagram */}
-              <div className="flex items-center mr-12">
-                <Image
-                  src="/instagram-logo.png"
-                  alt="Instagram Logo"
-                  width={55}
-                  height={55}
-                  className="mr-2"
-                />
-                <p className="text-sm text-gray-800">Instagram</p>
-              </div>
-              {/* Logo de GitHub */}
-              <div className="flex items-center">
-                <Image
-                  src="/github-logo.png"
-                  alt="GitHub Logo"
-                  width={55}
-                  height={55}
-                  className="mr-2"
-                />
-                <p className="text-sm text-gray-800">GitHub</p>
-              </div>
+            <div className="border-t border-gray-600 mt-4 pt-4 text-center">
+              <p className="text-sm">2024 © Boock Match. Todos los Derechos Reservados</p>
             </div>
           </div>
         </footer>
