@@ -5,6 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { useRouter } from 'next/navigation';
+import Button from '@mui/material/Button';
 
 const Navbar = ({ value, handleChange }) => {
     const router = useRouter();
@@ -28,6 +29,9 @@ const Navbar = ({ value, handleChange }) => {
                 break;
         }
     };
+    const handleLogout = () => {
+        // Aquí debes agregar el código para cerrar la sesión del usuario
+    };
 
     return (
         <AppBar position="static" color="primary" sx={{ backgroundColor: 'white', paddingTop: 2 }}>
@@ -38,6 +42,9 @@ const Navbar = ({ value, handleChange }) => {
                     <Tab label="Recomendaciones" />
                     <Tab label="Libros leídos" />
                 </Tabs>
+                <Button color="primary" onClick={handleLogout}>
+                    Cerrar sesión
+                </Button>
             </Toolbar>
         </AppBar>
     );

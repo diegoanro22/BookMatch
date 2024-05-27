@@ -23,12 +23,14 @@ const LibrosPage = () => {
         setIsRead(!isRead);
     };
 
+    const filteredLibros = libros.filter(libro => libro.isRead === isRead);
+
     return (
         <Layout value={value} handleChange={handleChange}>
             <TabPanel>
                 <h1>Libros</h1>
                 <Grid container spacing={2}>
-                    {libros.map((libro, index) => (
+                    {filteredLibros.map((libro, index) => (
                         <LibroCard key={index} libro={libro} handleReadClick={handleReadClick} isRead={isRead} />
                     ))}
                 </Grid>
