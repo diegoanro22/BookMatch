@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import Link from "next/link";
 import { loginUser } from '../../../lib/functions'; 
 import Modal from '../../../components/Modal';
+import Cookies from 'js-cookie';
 
 export default function Login() {
     const [formData, setFormData] = useState({
@@ -26,7 +27,12 @@ export default function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const user = await loginUser(formData);
+            const token = await loginUser(formData);
+            Cookies.set('authToken', token, {
+                expires: 1, // 1 day
+                secure: process.env.NODE_ENV === 'production',
+                sameSite: 'strict',
+            });
             setModalContent({ title: 'Éxito', message: 'Inicio de sesión exitoso', type: 'success' });
             setModalVisible(true);
         } catch (error) {
@@ -39,9 +45,9 @@ export default function Login() {
     const handleCloseModal = () => {
         setModalVisible(false);
         if (modalContent.type === 'success') {
-            router.push('/main');
+            router.push('/main/libros');
         } else {
-            router.push('./login_user');
+            router.push('/login/login_user');
         }
     };
 
@@ -51,7 +57,7 @@ export default function Login() {
             <div className="relative z-10 flex items-center justify-left w-full ml-44">
                 <img src="/lalala.png" alt="Bookmatch Logo" className="h-68" />
             </div>
-            <div className="relative z-10 sm:mx-24 w-full max-w-2xl bg-violet-100 p-12 rounded-lg shadow-lg backdrop-blur-lg bg-opacity-70">
+            <div className="relative z-10 sm:mx-24 w-full max-w-2xl bg-violet-100 p-12 rounded-lg shadow-lg backdrop-blur-lg bg-opacity-70 mt-20">
                 <h2 className="text-center text-5xl font-bold leading-9 tracking-tight text-black mb-10">
                     Iniciar sesión en tu cuenta
                 </h2>
