@@ -33,16 +33,16 @@ function MainPage() {
         <div>
             <Box sx={{ width: '100%' }}>
                 <AppBar position="static" color="primary" sx={{ backgroundColor: 'white' }} >
-                    <Toolbar>
-                    <Button color="inherit" onClick={handleLogout}>
-                            Cerrar sesión
-                        </Button>
-                    </Toolbar>
+                <Toolbar>
+                </Toolbar>
                     <Tabs value={value} onChange={handleChange} centered>
                         <Tab label="Libros" />
                         <Tab label="Géneros" />
                         <Tab label="Recomendaciones" />
                         <Tab label="Libros leidos"/>
+                        <Button variant="text" color="primary" onClick={handleLogout} style={{ color: 'black' }}>
+                            Cerrar sesión
+                        </Button>
                     </Tabs>
                 </AppBar>
                 {value === 0 && <TabPanel value={value} index={0}>
