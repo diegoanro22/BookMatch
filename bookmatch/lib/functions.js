@@ -66,3 +66,23 @@ export async function loginUser(formData) {
         throw error;
     }
 }
+
+export async function obtenerLibros() {
+    try {
+        const connect = await connectToNeo4j();
+        const session = connect.session();
+
+        const result = await session.run(
+            'MATCH (b:Book) RETURN b'
+        );
+
+        session.close();
+
+        // Extrae las propiedades de cada nodo de libro
+        const libros = result.records.map(record => record.get('b').properties);
+        return libros;
+    } catch (error) {
+        console.log(error);
+        throw new Error('Error al obtener libros');
+    }
+}
