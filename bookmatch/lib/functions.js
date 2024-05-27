@@ -22,11 +22,10 @@ export async function createUser({ nombre, apellido, email, username, password }
     try {
         const connect = await connectToNeo4j();
         const session = connect.session();
-        const hashedPassword = await bcrypt.hash(password, 10);
 
         const result = await session.run(
-            'CREATE (u:User {nombre: $nombre, apellido: $apellido, email: $email, username: $username, password: $hashedPassword}) RETURN u',
-            { nombre, apellido, email, username, hashedPassword }
+            'CREATE (u:User {nombre: $nombre, apellido: $apellido, email: $email, username: $username, password: $password}) RETURN u',
+            { nombre, apellido, email, username, password }
         );
 
         session.close();
