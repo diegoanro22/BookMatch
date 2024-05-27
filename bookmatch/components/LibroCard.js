@@ -11,7 +11,7 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 
 const LibroCard = ({ libro, handleReadClick, isRead }) => {
     return (
-        <Grid item xs={12} sm={6} md={4} lg={4} sx={{ margin: 1, [theme.breakpoints.down('sm')]: { width: '100%' }, [theme.breakpoints.up('md')]: { width: 'calc(50% - 20px)' }, [theme.breakpoints.up('lg')]: { width: 'calc(25% - 20px)' } }}>
+        <Grid>
             <Paper elevation={5} style={{ overflow: 'hidden' }}>
                 <Grid container direction="column" alignItems="center">
                     <Grid item xs={12}>

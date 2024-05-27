@@ -22,6 +22,14 @@ const LibrosPage = () => {
         { author: 'Autor 2', title: 'Libro 2', genre: 'Género 2', description: 'Descripción 2' },
         { author: 'Autor 1', title: 'Libro 1', genre: 'Género 1', description: 'Descripción 1' },
         { author: 'Autor 2', title: 'Libro 2', genre: 'Género 2', description: 'Descripción 2' },
+        { author: 'Autor 1', title: 'Libro 1', genre: 'Género 1', description: 'Descripción 1' },
+        { author: 'Autor 2', title: 'Libro 2', genre: 'Género 2', description: 'Descripción 2' },
+        { author: 'Autor 1', title: 'Libro 1', genre: 'Género 1', description: 'Descripción 1' },
+        { author: 'Autor 2', title: 'Libro 2', genre: 'Género 2', description: 'Descripción 2' },
+        { author: 'Autor 1', title: 'Libro 1', genre: 'Género 1', description: 'Descripción 1' },
+        { author: 'Autor 2', title: 'Libro 2', genre: 'Género 2', description: 'Descripción 2' },
+        { author: 'Autor 1', title: 'Libro 1', genre: 'Género 1', description: 'Descripción 1' },
+        { author: 'Autor 2', title: 'Libro 2', genre: 'Género 2', description: 'Descripción 2' },
         // Más libros
         ]);
 
@@ -38,10 +46,10 @@ const LibrosPage = () => {
                 <Grid container spacing={2}>
                 {libros.map((libro, index) => (
         <LibroCard
-          key={index}
-          libro={libro}
-          handleReadClick={() => handleReadClick(index)}
-          isRead={libro.isRead}
+            key={index}
+            libro={libro}
+            handleReadClick={() => handleReadClick(index)}
+            isRead={libro.isRead}
         />
       ))}
                 </Grid>
