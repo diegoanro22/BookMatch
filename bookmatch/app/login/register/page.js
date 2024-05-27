@@ -49,8 +49,9 @@ export default function Register() {
     };
 
     return (
-        <div className="flex min-h-screen items-center justify-center bg-cover bg-center" style={{ backgroundImage: 'url(/Background.jpg)' }}>
-            <div className="w-full max-w-4xl bg-violet-100 p-16 rounded-lg shadow-lg border border-indigo-600">
+        <div className="relative flex min-h-screen items-center justify-center">
+            <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: 'url(/noche.ppg)', filter: 'blur(8px)' }}></div>
+            <div className="relative z-10 w-full max-w-4xl bg-violet-50 p-16 rounded-lg shadow-lg  backdrop-blur-lg bg-opacity-70 mt-40 mb-20">
                 <h2 className="text-center text-4xl font-bold leading-9 tracking-tight text-gray-900 mb-8">
                     Registrarse
                 </h2>
@@ -132,7 +133,7 @@ export default function Register() {
                     <div>
                         <button
                             type="submit"
-                            className="w-full bg-indigo-600 px-4 py-3 text-lg font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            className="w-full bg-yellow-500 px-4 py-3 text-lg font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                         >
                             Registrarse
                         </button>

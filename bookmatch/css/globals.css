@@ -17,12 +17,12 @@
 }
 
 @font-face {
-  font-family: 'Bukhari Script';
-  src: url('../fonts/bukhari-script/Bukhari Script.ttf') format('truetype');
+  font-family: 'Lobster';
+  src: url('../fonts/lobster/Lobster 1.4.otf') format('truetype');
 }
 
 body {
-  font-family: 'Bukhari Script', sans-serif;
+  font-family: 'Lobster', sans-serif;
   color: rgb(var(--foreground-rgb));
   background-image: url('/noche.png');
   background-size: cover;
@@ -32,8 +32,8 @@ body {
   
 }
 
-.font-Bukhari {
-  font-family: 'Bukhari Script', sans-serif;
+.font-Lobster {
+  font-family: 'Lobster', sans-serif;
 }
 
 .text-white {
@@ -44,4 +44,7 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+option{
+  color:black;
 }
