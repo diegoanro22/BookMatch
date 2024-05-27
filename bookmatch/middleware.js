@@ -6,8 +6,8 @@ async function verifyToken(token) {
     const alg = { name: 'HMAC', hash: 'SHA-256' };
     const key = await crypto.subtle.importKey('raw', secret, alg, false, ['verify']);
     const [header, payload, signature] = token.split('.').map(part => new Uint8Array(atob(part).split("").map(c => c.charCodeAt(0))));
-    const data = `${token.split('.')[0]}.${token.split('.')[1]}`;
-    const valid = await crypto.subtle.verify('HMAC', key, signature, new TextEncoder().encode(data));
+    const data = new TextEncoder().encode(`${token.split('.')[0]}.${token.split('.')[1]}`);
+    const valid = await crypto.subtle.verify('HMAC', key, signature, data);
     return valid;
 }
 
@@ -16,7 +16,9 @@ export async function middleware(request) {
 
     if (!token) {
         console.log("Token not found");
-        return NextResponse.redirect(new URL('/login/login_user', request.url));
+        return NextResponse.redirect(new URL('/login/login_user', request.url));    
+    }else{
+        console.log("s");
     }
 
     try {
@@ -33,5 +35,11 @@ export async function middleware(request) {
 }
 
 export const config = {
-    matcher: ['/main/:path*'], // Protect all paths under /main
+    matcher: [
+        '/main/:path*', 
+        '/main/generos/:path*', 
+        '/main/libros/:path*', 
+        '/main/libros_leidos/:path*', 
+        '/main/recomendaciones/:path*'
+    ]
 };

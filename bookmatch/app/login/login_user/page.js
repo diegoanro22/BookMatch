@@ -45,7 +45,7 @@ export default function Login() {
     const handleCloseModal = () => {
         setModalVisible(false);
         if (modalContent.type === 'success') {
-            router.push('/main');
+            router.push('/main/libros');
         } else {
             router.push('/login/login_user');
         }
