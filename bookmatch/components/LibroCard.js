@@ -9,16 +9,17 @@ import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import { useTheme } from '@mui/material/styles';
+import Image from "next/image";
 
 const LibroCard = ({ libro, handleReadClick, isRead }) => {
     const theme = useTheme();
 
     return (
         <Grid item xs={12} sm={6} md={3} lg={3} sx={{padding: 1 }}>
-            <Paper elevation={2} sx={{ padding: 2, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+            <Paper elevation={2} sx={{ padding: 2, height: '100%', display: 'responsive', flexDirection: 'column', justifyContent: 'space-between' }}>
                 <div>
                     <Typography variant="h5" gutterBottom>{libro.title}</Typography>
-                    <img src="" alt={libro.title} style={{ width: '100%', marginBottom: theme.spacing(2) }} />
+                    <Image src={`/Portadaslibros/${libro.image}`} alt={libro.image} style={{ width: '100%', marginBottom: theme.spacing(2) } }  width={500} height={500} layout="responsive" />
                     <Typography variant="body1" gutterBottom>{libro.description}</Typography>
                     <Typography variant="body2">Q19.99</Typography>
                     <Typography variant="body2" gutterBottom>Leído</Typography>

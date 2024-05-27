@@ -73,7 +73,7 @@ export async function obtenerLibros() {
         const session = connect.session();
 
         const result = await session.run(
-            'MATCH (b:Book) RETURN b'
+            'MATCH (b:Book) WITH b ORDER BY rand() LIMIT 50 RETURN b'
         );
 
         session.close();
