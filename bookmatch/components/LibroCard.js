@@ -6,11 +6,11 @@ import Button from '@mui/material/Button';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import { useTheme } from '@mui/material/styles';
-import Image from "next/image";
+import Image from 'next/image';
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
-const LibroCard = ({ libro, handleReadClick, isRead }) => {
+const LibroCard = ({ libro, handleReadClick, handleLikeClick, isRead }) => {
     const theme = useTheme();
 
     return (
@@ -20,11 +20,23 @@ const LibroCard = ({ libro, handleReadClick, isRead }) => {
                     <Image src={`/Portadaslibros/${libro.image}`} alt={libro.image} style={{ width: '100%', marginBottom: theme.spacing(1) }} width={200} height={300} layout="responsive" />
                     <Typography variant="subtitle1" gutterBottom sx={{ fontWeight: 'bold', color: '#FFFFFF' }}>{libro.title}</Typography>
                 </div>
-                <div style={{ textAlign: 'center', marginBottom: theme.spacing(2) }}>
-                    <Button variant="contained" color="primary" startIcon={<ThumbUpIcon fontSize="small" />} sx={{ marginBottom: theme.spacing(1), fontSize: '0.8rem', backgroundColor: '#D4AC0D' }}>
+                <div style={{ textAlign: 'center' }}>
+                    <Button 
+                        variant="contained" 
+                        color="primary" 
+                        startIcon={<ThumbUpIcon fontSize="small" />} 
+                        onClick={handleLikeClick}
+                        sx={{ marginBottom: theme.spacing(1), fontSize: '0.8rem' }}
+                    >
                         Me gusta
                     </Button>
-                    <Button variant="contained" color="secondary" startIcon={<ThumbDownIcon fontSize="small" />} sx={{ fontSize: '0.8rem', backgroundColor: '#2471A3' }}>
+                    <Button 
+                        variant="contained" 
+                        color="secondary" 
+                        startIcon={<ThumbDownIcon fontSize="small" />} 
+                        onClick={handleLikeClick}
+                        sx={{ fontSize: '0.8rem' }}
+                    >
                         No me gusta
                     </Button>
                 </div>
