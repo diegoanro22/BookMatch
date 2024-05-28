@@ -10,7 +10,7 @@ import Image from 'next/image';
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
-const LibroCard = ({ libro, handleReadClick, handleLikeClick, isRead }) => {
+const LibroCard = ({ libro, handleReadClick, handleLikeClick, handleDislikeClick, isRead }) => {
     const theme = useTheme();
 
     return (
@@ -23,19 +23,17 @@ const LibroCard = ({ libro, handleReadClick, handleLikeClick, isRead }) => {
                 <div style={{ textAlign: 'center' }}>
                     <Button 
                         variant="contained" 
-                        color="primary" 
                         startIcon={<ThumbUpIcon fontSize="small" />} 
-                        onClick={handleLikeClick}
-                        sx={{ marginBottom: theme.spacing(1), fontSize: '0.8rem' }}
+                        onClick={() => handleLikeClick(libro.id)}
+                        sx={{ marginBottom: theme.spacing(1), fontSize: '0.8rem', backgroundColor: '#D4AC0D', '&:hover': { backgroundColor: '#B7950B' } }}
                     >
                         Me gusta
                     </Button>
                     <Button 
                         variant="contained" 
-                        color="secondary" 
                         startIcon={<ThumbDownIcon fontSize="small" />} 
-                        onClick={handleLikeClick}
-                        sx={{ fontSize: '0.8rem' }}
+                        onClick={() => handleDislikeClick(libro.id)}
+                        sx={{ fontSize: '0.8rem', backgroundColor: '#2471A3', '&:hover': { backgroundColor: '#1F618D' } }}
                     >
                         No me gusta
                     </Button>
@@ -43,7 +41,7 @@ const LibroCard = ({ libro, handleReadClick, handleLikeClick, isRead }) => {
                 <div style={{ textAlign: 'center' }}>
                     <Typography variant="body2" gutterBottom style={{ color: '#FFFFFF' }}>¿Ya has leído este título antes?</Typography>
                     <FormControlLabel
-                        control={<Switch checked={isRead} onChange={handleReadClick} />}
+                        control={<Switch checked={isRead} onChange={() => handleReadClick(libro.id)} />}
                         label=""
                     />
                 </div>
