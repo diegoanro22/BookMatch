@@ -1,0 +1,24 @@
+### Guía para instalar dependencias en el proyecto `BookMatch`
+
+#### Paso 1: Navegar a la carpeta del proyecto
+1. Abre tu terminal.
+2. Dirígete a la carpeta del proyecto `BookMatch` usando el siguiente comando:
+  
+
+   cd \BookMatch\bookmatch
+
+
+#### Paso 2: Instalar dependencias necesarias
+1. Una vez dentro de la carpeta del proyecto, ejecuta los siguientes comandos para instalar las dependencias necesarias:
+
+
+   npm install @mui/material
+   npm install js-cookie
+
+
+#### Paso 3: Manejar errores de instalación
+1. En caso de error de no reconocer `next`, corre el siguiente comando:
+
+   
+   npm install next
+
