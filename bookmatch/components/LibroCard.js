@@ -14,22 +14,22 @@ const LibroCard = ({ libro, handleReadClick, isRead }) => {
     const theme = useTheme();
 
     return (
-        <Grid item xs={12} sm={6} md={3} lg={3} sx={{ padding: 1 }}>
-            <Paper elevation={2} sx={{ padding: 1, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', backgroundColor: '#FFE082', maxWidth: 250 }}>
+        <Grid item xs={12} sm={6} md={3} lg={3} sx={{ padding: 1, display: 'flex', justifyContent: 'center' }}>
+            <Paper elevation={2} sx={{ padding: 1, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', backgroundColor: '#2E4053', maxWidth: 250 }}>
                 <div style={{ textAlign: 'center' }}>
                     <Image src={`/Portadaslibros/${libro.image}`} alt={libro.image} style={{ width: '100%', marginBottom: theme.spacing(1) }} width={200} height={300} layout="responsive" />
-                    <Typography variant="subtitle1" gutterBottom sx={{ fontWeight: 'bold' }}>{libro.title}</Typography>
+                    <Typography variant="subtitle1" gutterBottom sx={{ fontWeight: 'bold', color: '#FFFFFF' }}>{libro.title}</Typography>
                 </div>
-                <div style={{ textAlign: 'center' }}>
-                    <Button variant="contained" color="primary" startIcon={<ThumbUpIcon fontSize="small" />} sx={{ marginBottom: theme.spacing(1), fontSize: '0.8rem' }}>
+                <div style={{ textAlign: 'center', marginBottom: theme.spacing(2) }}>
+                    <Button variant="contained" color="primary" startIcon={<ThumbUpIcon fontSize="small" />} sx={{ marginBottom: theme.spacing(1), fontSize: '0.8rem', backgroundColor: '#D4AC0D' }}>
                         Me gusta
                     </Button>
-                    <Button variant="contained" color="secondary" startIcon={<ThumbDownIcon fontSize="small" />} sx={{ fontSize: '0.8rem' }}>
+                    <Button variant="contained" color="secondary" startIcon={<ThumbDownIcon fontSize="small" />} sx={{ fontSize: '0.8rem', backgroundColor: '#2471A3' }}>
                         No me gusta
                     </Button>
                 </div>
                 <div style={{ textAlign: 'center' }}>
-                    <Typography variant="body2" gutterBottom>¿Ya has leído este título antes?</Typography>
+                    <Typography variant="body2" gutterBottom style={{ color: '#FFFFFF' }}>¿Ya has leído este título antes?</Typography>
                     <FormControlLabel
                         control={<Switch checked={isRead} onChange={handleReadClick} />}
                         label=""
