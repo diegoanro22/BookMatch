@@ -6,11 +6,11 @@ import Button from '@mui/material/Button';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import { useTheme } from '@mui/material/styles';
-import Image from "next/image";
+import Image from 'next/image';
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
-const LibroCard = ({ libro, handleReadClick, isRead }) => {
+const LibroCard = ({ libro, handleReadClick, handleLikeClick, isRead }) => {
     const theme = useTheme();
 
     return (
@@ -21,10 +21,22 @@ const LibroCard = ({ libro, handleReadClick, isRead }) => {
                     <Typography variant="subtitle1" gutterBottom sx={{ fontWeight: 'bold' }}>{libro.title}</Typography>
                 </div>
                 <div style={{ textAlign: 'center' }}>
-                    <Button variant="contained" color="primary" startIcon={<ThumbUpIcon fontSize="small" />} sx={{ marginBottom: theme.spacing(1), fontSize: '0.8rem' }}>
+                    <Button 
+                        variant="contained" 
+                        color="primary" 
+                        startIcon={<ThumbUpIcon fontSize="small" />} 
+                        onClick={handleLikeClick}
+                        sx={{ marginBottom: theme.spacing(1), fontSize: '0.8rem' }}
+                    >
                         Me gusta
                     </Button>
-                    <Button variant="contained" color="secondary" startIcon={<ThumbDownIcon fontSize="small" />} sx={{ fontSize: '0.8rem' }}>
+                    <Button 
+                        variant="contained" 
+                        color="secondary" 
+                        startIcon={<ThumbDownIcon fontSize="small" />} 
+                        onClick={handleLikeClick}
+                        sx={{ fontSize: '0.8rem' }}
+                    >
                         No me gusta
                     </Button>
                 </div>
