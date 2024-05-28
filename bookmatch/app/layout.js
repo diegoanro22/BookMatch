@@ -34,7 +34,16 @@ export default function RootLayout({ children }) {
               {/* Logo y Redes Sociales */}
               <div className="flex flex-col">
                 <div className="mb-4">
-                  <h1 className="font-bold text-white text-xl mb-1">Book Match</h1>
+                <h1 style={{
+                    fontWeight: 'bold', 
+                    color: 'white', 
+                    fontSize: '24px', 
+                    marginBottom: '10px', 
+                    textShadow: '2px 2px 4px rgba(0,0,0,0.6)', 
+                    padding: '10px', 
+                    borderBottom: '2px solid #fff', 
+                    width: 'max-content'
+                  }}>Book Match</h1>
                   <p className="text-sm">por el placer de leer</p>
                 </div>
                 <div className="flex space-x-4">
