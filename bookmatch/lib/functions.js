@@ -86,3 +86,26 @@ export async function obtenerLibros() {
         throw new Error('Error al obtener libros');
     }
 }
+export async function obtenerGeneros() {
+        try {
+        const connect = await connectToNeo4j();
+        const session = connect.session();
+    
+        const result = await session.run(
+            'MATCH (g:Genre) RETURN g'
+        );
+    
+        session.close();
+    
+        // Extrae las propiedades de cada nodo de género
+        const generos = result.records.map(record => record.get('g').properties);
+    
+        // Elimina los duplicados utilizando el método Set
+        const generosSinDuplicados = [...new Set(generos.map(genero => genero.nombre))];
+    
+        return generosSinDuplicados;
+        } catch (error) {
+        console.log(error);
+        throw new Error('Error al obtener géneros');
+        }
+    }
