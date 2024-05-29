@@ -1,21 +1,12 @@
 'use server';
 import connectToNeo4j from './connection';
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
-const secret = new TextEncoder().encode(process.env.JWT_SECRET); // Convert secret to Uint8Array
+const secret = process.env.JWT_SECRET;
 
-async function signToken(data) {
-    const alg = { name: 'HMAC', hash: 'SHA-256' };
-    const key = await crypto.subtle.importKey('raw', secret, alg, false, ['sign']);
-    const encoder = new TextEncoder();
-    const header = encoder.encode(JSON.stringify({ alg: 'HS256', typ: 'JWT' }));
-    const payload = encoder.encode(JSON.stringify(data));
-    const base64Header = btoa(String.fromCharCode(...new Uint8Array(header)));
-    const base64Payload = btoa(String.fromCharCode(...new Uint8Array(payload)));
-    const dataToSign = `${base64Header}.${base64Payload}`;
-    const signature = await crypto.subtle.sign('HMAC', key, encoder.encode(dataToSign));
-    const base64Signature = btoa(String.fromCharCode(...new Uint8Array(signature)));
-    return `${dataToSign}.${base64Signature}`;
+function signToken(data) {
+    return jwt.sign(data, secret, { algorithm: 'HS256' });
 }
 
 export async function createUser({ nombre, apellido, email, username, password }) {
@@ -59,7 +50,7 @@ export async function loginUser(formData) {
 
         session.close();
 
-        const token = await signToken({ username: user.username });
+        const token = signToken({username: user.username });
         return token;
     } catch (error) {
         console.log(error);
@@ -67,22 +58,251 @@ export async function loginUser(formData) {
     }
 }
 
-export async function obtenerLibros() {
+export async function obtenerLibros(username) {
     try {
         const connect = await connectToNeo4j();
         const session = connect.session();
 
         const result = await session.run(
-            'MATCH (b:Book) WITH b ORDER BY rand() LIMIT 50 RETURN b'
+            'MATCH (b:Book) ' +
+            'OPTIONAL MATCH (u:User {username: $username})-[r1:READ]->(b) ' +
+            'OPTIONAL MATCH (u:User {username: $username})-[r2:LIKES]->(b) ' +
+            'RETURN DISTINCT b.title AS title, b.image AS image, r1 IS NOT NULL AS isRead, r2 IS NOT NULL AS isLiked ' +
+            'ORDER BY rand() ' +
+            'LIMIT 50',
+            { username }
         );
 
         session.close();
 
-        // Extrae las propiedades de cada nodo de libro
-        const libros = result.records.map(record => record.get('b').properties);
+        const libros = result.records.map(record => ({
+            title: record.get('title'),
+            image: record.get('image'),
+            isRead: record.get('isRead'),
+            isLiked: record.get('isLiked')
+        }));
         return libros;
     } catch (error) {
         console.log(error);
         throw new Error('Error al obtener libros');
     }
 }
+
+export async function obtenerGeneros(username) {
+    try {
+        const connect = await connectToNeo4j();
+        const session = connect.session();
+
+        const result = await session.run(
+            'MATCH (g:Genre) ' +
+            'OPTIONAL MATCH (u:User {username: $username})-[r:INTERESTED_IN]->(g) ' +
+            'RETURN DISTINCT g.type AS type, r IS NOT NULL AS isLiked',
+            { username }
+        );
+
+        session.close();
+
+        const generos = result.records.map(record => ({
+            type: record.get('type'),
+            isLiked: record.get('isLiked')
+        }));
+        return generos;
+    } catch (error) {
+        console.log(error);
+        throw new Error('Error al obtener generos');
+    }
+}
+
+
+export async function relacionGenero(userUsername, generoType) {
+    try {
+        const connect = await connectToNeo4j();
+        const session = connect.session();
+
+        const result = await session.run(
+            'MATCH (u:User {username: $userUsername}), (g:Genre {type: $generoType}) ' +
+            'MERGE (u)-[r:INTERESTED_IN]->(g) ' +
+            'RETURN r',
+            { userUsername, generoType }
+        );
+
+        session.close();
+
+        if (result.records.length > 0) {
+            console.log('Relación creada con éxito:', result.records[0].get('r'));
+            return true;
+        } else {
+            throw new Error('No se pudo crear la relación');
+        }
+    } catch (error) {
+        console.log(error);
+        throw new Error('Error al crear la relación entre el usuario y el género');
+    }
+}
+
+export async function obtenerUserIdDesdeToken(token) {
+    try {
+        const decoded = jwt.verify(token, secret);
+        return decoded.username;
+    } catch (error) {
+        console.error('Error al decodificar el token:', error);
+        return null;
+    }
+}
+
+export async function eliminarRelacionGenero(userUsername, generoType) {
+    try {
+        const connect = await connectToNeo4j();
+        const session = connect.session();
+
+        const result = await session.run(
+            'MATCH (u:User {username: $userUsername})-[r:INTERESTED_IN]->(g:Genre {type: $generoType}) ' +
+            'DELETE r',
+            { userUsername, generoType }
+        );
+
+        session.close();
+
+        if (result.summary.counters.updates().relationshipsDeleted > 0) {
+            console.log('Relación eliminada con éxito');
+            return true;
+        } else {
+            throw new Error('No se pudo eliminar la relación');
+        }
+    } catch (error) {
+        console.log(error);
+        throw new Error('Error al eliminar la relación entre el usuario y el género');
+    }
+}
+
+export async function relacionLikeLibro(userUsername, libroTitle) {
+    try {
+        const connect = await connectToNeo4j();
+        const session = connect.session();
+
+        const result = await session.run(
+            'MATCH (u:User {username: $userUsername}), (b:Book {title: $libroTitle}) ' +
+            'MERGE (u)-[r:LIKES]->(b) ' +
+            'RETURN r',
+            { userUsername, libroTitle }
+        );
+
+        session.close();
+
+        if (result.records.length > 0) {
+            console.log('Relación de gusto creada con éxito:', result.records[0].get('r'));
+            return true;
+        } else {
+            throw new Error('No se pudo crear la relación de gusto');
+        }
+    } catch (error) {
+        console.log(error);
+        throw new Error('Error al crear la relación de gusto entre el usuario y el libro');
+    }
+}
+
+export async function eliminarRelacionLikeLibro(userUsername, libroTitle) {
+    try {
+        const connect = await connectToNeo4j();
+        const session = connect.session();
+
+        const result = await session.run(
+            'MATCH (u:User {username: $userUsername})-[r:LIKES]->(b:Book {title: $libroTitle}) ' +
+            'DELETE r',
+            { userUsername, libroTitle }
+        );
+
+        session.close();
+
+        if (result.summary.counters.updates().relationshipsDeleted > 0) {
+            console.log('Relación de gusto eliminada con éxito');
+            return true;
+        } else {
+            throw new Error('No se pudo eliminar la relación de gusto');
+        }
+    } catch (error) {
+        console.log(error);
+        throw new Error('Error al eliminar la relación de gusto entre el usuario y el libro');
+    }
+}
+
+
+export async function relacionReadLibro(userUsername, libroTitle) {
+    try {
+        const connect = await connectToNeo4j();
+        const session = connect.session();
+
+        const result = await session.run(
+            'MATCH (u:User {username: $userUsername}), (b:Book {title: $libroTitle}) ' +
+            'MERGE (u)-[r:READ]->(b) ' +
+            'RETURN r',
+            { userUsername, libroTitle }
+        );
+
+        session.close();
+
+        if (result.records.length > 0) {
+            console.log('Relación de leído creada con éxito:', result.records[0].get('r'));
+            return true;
+        } else {
+            throw new Error('No se pudo crear la relación de leído');
+        }
+    } catch (error) {
+        console.log(error);
+        throw new Error('Error al crear la relación de leído entre el usuario y el libro');
+    }
+}
+
+export async function eliminarRelacionReadLibro(userUsername, libroTitle) {
+    try {
+        const connect = await connectToNeo4j();
+        const session = connect.session();
+
+        const result = await session.run(
+            'MATCH (u:User {username: $userUsername})-[r:READ]->(b:Book {title: $libroTitle}) ' +
+            'DELETE r',
+            { userUsername, libroTitle }
+        );
+
+        session.close();
+
+        if (result.summary.counters.updates().relationshipsDeleted > 0) {
+            console.log('Relación de leído eliminada con éxito');
+            return true;
+        } else {
+            throw new Error('No se pudo eliminar la relación de leído');
+        }
+    } catch (error) {
+        console.log(error);
+        throw new Error('Error al eliminar la relación de leído entre el usuario y el libro');
+    }
+}
+
+
+export async function obtenerLibrosLeidos(username) {
+    try {
+        const connect = await connectToNeo4j();
+        const session = connect.session();
+
+        const result = await session.run(
+            'MATCH (u:User {username: $username})-[r:READ]->(b:Book) ' +
+            'OPTIONAL MATCH (u)-[l:LIKES]->(b) ' +
+            'RETURN DISTINCT b.title AS title, b.image AS image, r IS NOT NULL AS isRead, l IS NOT NULL AS isLiked',
+            { username }
+        );
+
+        session.close();
+
+        const librosLeidos = result.records.map(record => ({
+            title: record.get('title'),
+            image: record.get('image'),
+            isRead: record.get('isRead'),
+            isLiked: record.get('isLiked')
+        }));
+        return librosLeidos;
+    } catch (error) {
+        console.log(error);
+        throw new Error('Error al obtener libros leídos');
+    }
+}
+

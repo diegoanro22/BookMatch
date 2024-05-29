@@ -6,6 +6,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { useRouter } from 'next/navigation';
 import Button from '@mui/material/Button';
+import Cookies from 'js-cookie';
 
 const Navbar = ({ value, handleChange }) => {
     const router = useRouter();
@@ -30,7 +31,8 @@ const Navbar = ({ value, handleChange }) => {
         }
     };
     const handleLogout = () => {
-        // Aquí debes agregar el código para cerrar la sesión del usuario
+        Cookies.remove('authToken');
+        router.push('/'); 
     };
 
     return (

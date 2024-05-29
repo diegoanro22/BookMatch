@@ -2,38 +2,48 @@ import React from 'react';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import { useTheme } from '@mui/material/styles';
-import Image from "next/image";
+import Image from 'next/image';
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
-const LibroCard = ({ libro, handleReadClick, isRead }) => {
+const LibroCard = ({ libro, handleReadClick, handleLikeClick, handleDislikeClick, isRead }) => {
     const theme = useTheme();
 
     return (
-        <Grid item xs={12} sm={6} md={3} lg={3} sx={{padding: 1 }}>
-            <Paper elevation={2} sx={{ padding: 2, height: '100%', display: 'responsive', flexDirection: 'column', justifyContent: 'space-between' }}>
-                <div>
-                    <Typography variant="h5" gutterBottom>{libro.title}</Typography>
-                    <Image src={`/Portadaslibros/${libro.image}`} alt={libro.image} style={{ width: '100%', marginBottom: theme.spacing(2) } }  width={500} height={500} layout="responsive" />
-                    <Typography variant="body1" gutterBottom>{libro.description}</Typography>
-                    <Typography variant="body2">Q19.99</Typography>
-                    <Typography variant="body2" gutterBottom>Leído</Typography>
-                    <IconButton color="primary" aria-label="Leído" onClick={handleReadClick}>
-                        {isRead ? <CheckCircleIcon /> : <CheckBoxOutlineBlankIcon />}
-                    </IconButton>
+        <Grid item xs={12} sm={6} md={3} lg={3} sx={{ padding: 1, display: 'flex', justifyContent: 'center' }}>
+            <Paper elevation={2} sx={{ padding: 1, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', backgroundColor: '#2E4053', maxWidth: 250 }}>
+                <div style={{ textAlign: 'center' }}>
+                    <Image src={`/Portadaslibros/${libro.image}`} alt={libro.image} style={{ width: '100%', marginBottom: theme.spacing(1) }} width={200} height={300} layout="responsive" />
+                    <Typography variant="subtitle1" gutterBottom sx={{ fontWeight: 'bold', color: '#FFFFFF' }}>{libro.title}</Typography>
                 </div>
-                <div>
-                    <Button variant="contained" color="primary" startIcon={<ThumbUpIcon />} sx={{ marginBottom: theme.spacing(1) }}>
+                <div style={{ textAlign: 'center' }}>
+                    <Button 
+                        variant="contained" 
+                        startIcon={<ThumbUpIcon fontSize="small" />} 
+                        onClick={() => handleLikeClick(libro.id)}
+                        sx={{ marginBottom: theme.spacing(1), fontSize: '0.8rem', backgroundColor: '#D4AC0D', '&:hover': { backgroundColor: '#B7950B' } }}
+                    >
                         Me gusta
                     </Button>
-                    <Button variant="contained" color="secondary" startIcon={<ThumbDownIcon />}>
+                    <Button 
+                        variant="contained" 
+                        startIcon={<ThumbDownIcon fontSize="small" />} 
+                        onClick={() => handleDislikeClick(libro.id)}
+                        sx={{ fontSize: '0.8rem', backgroundColor: '#2471A3', '&:hover': { backgroundColor: '#1F618D' } }}
+                    >
                         No me gusta
                     </Button>
+                </div>
+                <div style={{ textAlign: 'center' }}>
+                    <Typography variant="body2" gutterBottom style={{ color: '#FFFFFF' }}>¿Ya has leído este título antes?</Typography>
+                    <FormControlLabel
+                        control={<Switch checked={isRead} onChange={() => handleReadClick(libro.id)} />}
+                        label=""
+                    />
                 </div>
             </Paper>
         </Grid>
