@@ -77,8 +77,8 @@ const GenerosPage = () => {
   return (
     <Layout value={value} handleChange={handleChange}>
       <TabPanel>
-        <h1>Géneros</h1>
-        <Grid container spacing={1}>
+        <h1 className="font-Lobster text-white mt-8 mb-3" style={{ textAlign: 'center', fontSize: '42px' }}>Géneros</h1>
+        <Grid container spacing={0}>
           {generos.map((genero, index) => (
             <GeneroCard
               key={index}

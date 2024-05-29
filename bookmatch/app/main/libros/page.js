@@ -104,8 +104,8 @@ const LibrosPage = () => {
     return (
         <Layout value={value} handleChange={handleChange}>
             <TabPanel>
-                <h1>Libros</h1>
-                <Grid container spacing={1}>
+                <h1 className="font-Lobster text-white mt-8 mb-3" style={{ textAlign: 'center', fontSize: '42px' }}>Libros</h1>
+                <Grid container spacing={0}>
                     {libros.map((libro, index) => (
                         <LibroCard
                             key={index}
