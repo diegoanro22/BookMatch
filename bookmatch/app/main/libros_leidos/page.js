@@ -28,7 +28,7 @@ const LibrosPage = () => {
     return (
         <Layout value={value} handleChange={handleChange}>
             <TabPanel>
-                <h1 style={{ textAlign: 'center', fontSize: '32px', color: 'white' }}>Libros leidos</h1>
+                <h1 className="font-Lobster text-white mt-8 mb-8" style={{ textAlign: 'center', fontSize: '42px' }}>Libros leídos</h1>
                 <Grid container spacing={2}>
                     {filteredLibros.map((libro, index) => (
                         <LibroCard key={index} libro={libro} handleReadClick={handleReadClick} isRead={isRead} />
