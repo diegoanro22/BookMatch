@@ -109,9 +109,9 @@ const RecommendationPage = () => {
     return (
         <Layout value={value} handleChange={handleChange}>
             <TabPanel>
-                <h1>Recomendaciones</h1>
+            <h1 className="font-Lobster text-white mt-8 mb-3" style={{ textAlign: 'center', fontSize: '42px' }}>Recomendaciones</h1>
                 <div>
-                    <h2>Recomendaciones por género</h2>
+                    <h2 className="font-Lobster text-white mt-8 mb-8" style={{ textAlign: 'center', fontSize: '42px' }}>Recomendaciones por género</h2>
                     <Grid container spacing={2}>
                         {recomendacionesGenero.map((libro, index) => (
                             <LibroCard
