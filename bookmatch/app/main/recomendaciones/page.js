@@ -142,7 +142,7 @@ const RecommendationPage = () => {
                     </Grid>
                 </div>
                 <div>
-                    <h2>Recomendaciones por usuario</h2>
+                <h2 className="font-Lobster text-white mt-8 mb-8" style={{ textAlign: 'center', fontSize: '42px' }}>Recomendaciones en base a tus me gustas</h2>
                     <Grid container spacing={2}>
                         {recomendacionesUsuario.map((libro, index) => (
                             <LibroCard

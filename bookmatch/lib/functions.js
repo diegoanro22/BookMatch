@@ -69,7 +69,7 @@ export async function obtenerLibros(username) {
             'OPTIONAL MATCH (u:User {username: $username})-[r2:LIKES]->(b) ' +
             'RETURN DISTINCT b.title AS title, b.image AS image, r1 IS NOT NULL AS isRead, r2 IS NOT NULL AS isLiked ' +
             'ORDER BY rand() ' +
-            'LIMIT 50',
+            'LIMIT 48',
             { username }
         );
 

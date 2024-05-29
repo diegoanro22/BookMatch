@@ -12,7 +12,7 @@ export async function obtenerLibrosPorAutor(username) {
             'MATCH (a)-[:WROTE]->(recomm:Book) ' +
             'RETURN DISTINCT recomm.title AS title, recomm.image AS image ' +
             'ORDER BY rand() ' +
-            'LIMIT 5',
+            'LIMIT 8',
             { username }
         );
 
@@ -38,7 +38,7 @@ export async function obtenerLibrosPorGenero(username) {
             'MATCH (u:User {username: $username})-[:INTERESTED_IN]->(g:Genre)<-[:BELONGS_TO]-(b:Book) ' +
             'RETURN DISTINCT b.title AS title, b.image AS image ' +
             'ORDER BY rand() ' +
-            'LIMIT 5',
+            'LIMIT 8',
             { username }
         );
 
@@ -65,7 +65,8 @@ export async function obtenerLibrosPorUsuario(username) {
             'MATCH (other)-[:LIKES]->(rec:Book) ' +
             'WHERE NOT (u)-[:LIKES]->(rec) ' +
             'RETURN DISTINCT rec.title AS title, rec.image AS image ' +
-            'LIMIT 10',
+            'ORDER BY rand() ' +
+            'LIMIT 8',
             { username }
         );
 
