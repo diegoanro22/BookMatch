@@ -1,97 +1,58 @@
 'use client'
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import TabPanel from '../../../components/TabPanel';
-import GeneroCard from '../../../components/GeneroCard';
+import LibroCard from '../../../components/LibroCard';
 import Layout from '../layout';
 import Grid from '@mui/material/Grid';
-import { obtenerGeneros, relacionGenero, eliminarRelacionGenero, obtenerUserIdDesdeToken } from '../../../lib/functions';
-import Cookies from 'js-cookie';
 
-const GenerosPage = () => {
-  const [value, setValue] = useState(1);
-  const [generos, setGeneros] = useState([]);
+const LibrosPage = () => {
+    const [isRead, setIsRead] = useState(false);
+    const [value, setValue] = useState(1);
+    const [selectedGenre, setSelectedGenre] = useState(null);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  useEffect(() => {
-    const fetchGeneros = async () => {
-      try {
-        const token = Cookies.get('authToken');
-        if (token) {
-          const username = await obtenerUserIdDesdeToken(token); // Obtener el username del usuario
-          if (username) {
-            const generosObtenidos = await obtenerGeneros(username);
-            setGeneros(generosObtenidos);
-          } else {
-            throw new Error('No se pudo obtener el username del usuario');
-          }
-        } else {
-          throw new Error('Token no encontrado');
-        }
-      } catch (error) {
-        console.error('Error al obtener los géneros:', error);
-      }
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
     };
-    fetchGeneros();
-  }, []);
 
-  const handleLikeClick = async (index) => {
-    console.log("Click en el índice:", index);
-    const newGeneros = [...generos];
-    const genero = newGeneros[index];
-    
-    // Invierte el estado de 'isLiked'
-    genero.isLiked = !genero.isLiked;
+    const handleGenreChange = (event) => {
+        setSelectedGenre(event.target.value);
+    };
 
-    try {
-      const token = Cookies.get('authToken');
-      if (token) {
-        const username = await obtenerUserIdDesdeToken(token);
-        console.log(username);
-        if (username) {
-          if (genero.isLiked) {
-            await relacionGenero(username, genero.type);
-            console.log('Relación creada exitosamente');
-          } else {
-            await eliminarRelacionGenero(username, genero.type);
-            console.log('Relación eliminada exitosamente');
-          }
-        } else {
-          throw new Error('No se pudo obtener el username del usuario');
-        }
-      } else {
-        throw new Error('Token no encontrado');
-      }
-    } catch (error) {
-      console.error('Error al manejar la relación:', error);
-      // Opcionalmente revertir el cambio de estado si la creación/eliminación de la relación falla
-      genero.isLiked = !genero.isLiked;
-    }
+    const libros = [
+        { author: 'Autor 1', title: 'Libro 1', genre: 'Género 1', description: 'Descripción 1' },
+        { author: 'Autor 2', title: 'Libro 2', genre: 'Género 2', description: 'Descripción 2' },
+        { author: 'Autor 3', title: 'Libro 3', genre: 'Género 3', description: 'Descripción 3' },
+        { author: 'Autor 4', title: 'Libro 4', genre: 'Género 2', description: 'Descripción 4' },
+        { author: 'Autor 5', title: 'Libro 5', genre: 'Género 1', description: 'Descripción 5' },
+        { author: 'Autor 6', title: 'Libro 6', genre: 'Género 2', description: 'Descripción 6' },
+        // Más libros
+    ];
 
-    // Actualiza el estado con el nuevo array modificado
-    setGeneros(newGeneros);
-  };
+    const handleReadClick = () => {
+        setIsRead(!isRead);
+    };
 
-  return (
-    <Layout value={value} handleChange={handleChange}>
-      <TabPanel>
-        <h1>Géneros</h1>
-        <Grid container spacing={1}>
-          {generos.map((genero, index) => (
-            <GeneroCard
-              key={index}
-              genero={genero}
-              handleLikeClick={() => handleLikeClick(index)}
-              isLiked={genero.isLiked}
-              index={index}  // Pasamos el índice como prop adicional
-            />
-          ))}
-        </Grid>
-      </TabPanel>
-    </Layout>
-  );
+    const filteredLibros = libros.filter((libro) => libro.genre === selectedGenre);
+
+    return (
+        <Layout value={value} handleChange={handleChange}>
+            <TabPanel>
+                <h1 style={{ textAlign: 'center', fontSize: '32px', color: 'white' }}>Géneros</h1>
+                <select value={selectedGenre} onChange={handleGenreChange} color="black" style={{ backgroundColor: 'transparent' }}>
+                    <option value="">Seleccione un género</option>
+                    <option value="Género 1">Género 1</option>
+                    <option value="Género 2">Género 2</option>
+                    <option value="Género 3">Género 3</option>
+                    {/* Agrega más opciones para cada género */}
+                </select>
+                <Grid container spacing={2}>
+                {filteredLibros.map((libro, index) => (
+                        <LibroCard key={index} libro={libro} handleReadClick={handleReadClick} isRead={isRead} />
+                    ))}
+                </Grid>
+            </TabPanel>
+        </Layout>
+    );
 };
 
-export default GenerosPage;
+export default LibrosPage;
