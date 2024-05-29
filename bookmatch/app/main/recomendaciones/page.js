@@ -125,7 +125,7 @@ const RecommendationPage = () => {
                     </Grid>
                 </div>
                 <div>
-                    <h2>Recomendaciones por autor</h2>
+                    <h2 className="font-Lobster text-white mt-8 mb-8" style={{ textAlign: 'center', fontSize: '42px' }}>Recomendaciones por autor</h2>
                     <Grid container spacing={2}>
                         {recomendacionesAutor.map((libro, index) => (
                             <LibroCard
