@@ -54,3 +54,35 @@ export async function obtenerLibrosPorGenero(username) {
         throw new Error('Error al obtener libros por género');
     }
 }
+
+export async function obtenerLibrosPorUsuario(username) {
+    try {
+        const connect = await connectToNeo4j();
+        const session = connect.session();
+
+        const result = await session.run(
+            'MATCH (u:User {username: $username})-[:LIKES]->(b:Book)<-[:LIKES]-(other:User) ' +
+            'MATCH (other)-[:LIKES]->(rec:Book) ' +
+            'WHERE NOT (u)-[:LIKES]->(rec) ' +
+            'RETURN DISTINCT rec.title AS title, rec.image AS image ' +
+            'LIMIT 10',
+            { username }
+        );
+
+        session.close();
+
+        if (result.records.length === 0) {
+            throw new Error('No se encontraron datos para el usuario');
+        }
+
+        const recommendedBooks = result.records.map(record => ({
+            title: record.get('title'),
+            image: record.get('image')
+        }));
+
+        return recommendedBooks;
+    } catch (error) {
+        console.log(error);
+        throw new Error('Error al obtener libros por usuario');
+    }
+}

@@ -5,7 +5,7 @@ import LibroCard from '../../../components/LibroCard';
 import Layout from '../layout';
 import Grid from '@mui/material/Grid';
 import { obtenerLibros, relacionReadLibro, eliminarRelacionReadLibro, relacionLikeLibro, eliminarRelacionLikeLibro, obtenerUserIdDesdeToken } from '../../../lib/functions'; 
-import { obtenerLibrosPorAutor, obtenerLibrosPorGenero } from '../../../lib/recommendation'; 
+import { obtenerLibrosPorAutor, obtenerLibrosPorGenero, obtenerLibrosPorUsuario } from '../../../lib/recommendation'; 
 import Cookies from 'js-cookie';
 
 const RecommendationPage = () => {
@@ -13,6 +13,7 @@ const RecommendationPage = () => {
     const [libros, setLibros] = useState([]);
     const [recomendacionesGenero, setRecomendacionesGenero] = useState([]);
     const [recomendacionesAutor, setRecomendacionesAutor] = useState([]);
+    const [recomendacionesUsuario, setRecomendacionesUsuario] = useState([]);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -27,8 +28,10 @@ const RecommendationPage = () => {
                     if (username) {
                         const librosGenero = await obtenerLibrosPorGenero(username);
                         const librosAutor = await obtenerLibrosPorAutor(username);
+                        const librosUsuario = await obtenerLibrosPorUsuario(username);
                         setRecomendacionesGenero(librosGenero);
                         setRecomendacionesAutor(librosAutor);
+                        setRecomendacionesUsuario(librosUsuario);
                     } else {
                         throw new Error('No se pudo obtener el username del usuario');
                     }
@@ -133,6 +136,20 @@ const RecommendationPage = () => {
                                 libro={libro}
                                 handleReadClick={() => handleReadClick(index, recomendacionesAutor, setRecomendacionesAutor)}
                                 handleLikeClick={() => handleLikeClick(index, recomendacionesAutor, setRecomendacionesAutor)}
+                                isRead={libro.isRead}
+                            />
+                        ))}
+                    </Grid>
+                </div>
+                <div>
+                    <h2>Recomendaciones por usuario</h2>
+                    <Grid container spacing={2}>
+                        {recomendacionesUsuario.map((libro, index) => (
+                            <LibroCard
+                                key={index}
+                                libro={libro}
+                                handleReadClick={() => handleReadClick(index, recomendacionesUsuario, setRecomendacionesUsuario)}
+                                handleLikeClick={() => handleLikeClick(index, recomendacionesUsuario, setRecomendacionesUsuario)}
                                 isRead={libro.isRead}
                             />
                         ))}
