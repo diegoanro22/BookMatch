@@ -14,6 +14,7 @@
 
    npm install @mui/material
    npm install js-cookie
+   npm install @mui/icons-material
 
 
 #### Paso 3: Manejar errores de instalación
