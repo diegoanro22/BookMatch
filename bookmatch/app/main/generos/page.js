@@ -37,7 +37,7 @@ const LibrosPage = () => {
     return (
         <Layout value={value} handleChange={handleChange}>
             <TabPanel>
-                <h1>Libros</h1>
+                <h1 style={{ textAlign: 'center', fontSize: '32px', color: 'white' }}>Géneros</h1>
                 <select value={selectedGenre} onChange={handleGenreChange} color="black" style={{ backgroundColor: 'transparent' }}>
                     <option value="">Seleccione un género</option>
                     <option value="Género 1">Género 1</option>
